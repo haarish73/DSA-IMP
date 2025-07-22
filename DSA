@@ -1,0 +1,99 @@
+Sure! Below is a **well-formatted GitHub-style README.md content** for your **Container With Most Water** solution.
+You can directly copy-paste this into a `README.md` file and upload it to GitHub.
+
+---
+
+# 🪣 Container With Most Water
+
+## 💡 Problem Statement
+
+Given `n` non-negative integers `height[]` where each represents a vertical line on the x-axis, find two lines that together with the x-axis form a container that holds the **most water**.
+
+[LeetCode Link - Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+
+---
+
+## 🚀 Solutions
+
+### 🔍 **Intuition**
+
+The first thought was to use a **brute-force approach** by checking all possible pairs of lines to calculate the area. However, the time complexity of brute force is **O(n²)**, which is not optimal for large inputs.
+
+To optimize this, I used the **Two Pointer Technique**.
+
+---
+
+### 📝 **Approach**
+
+I solved this problem using the **Two Pointer Technique**.
+The main idea is to maximize the area formed between two lines by moving pointers smartly towards each other.
+
+### 👣 **Steps:**
+
+1. **Initialize two pointers:**
+
+   * `start = 0` (leftmost line)
+   * `end = height.length - 1` (rightmost line)
+
+2. **Iterate using a `while` loop until `start < end`:**
+
+   * Calculate `width = end - start`
+   * Find `height1 = Math.min(height[start], height[end])`
+   * Calculate `currentArea = height1 * width`
+   * Update `maxArea` if `currentArea` is greater
+
+3. **Move pointers:**
+
+   * Move the pointer pointing to the **smaller height** inward
+   * Reason: The area is limited by the shorter line; moving the taller one won't help
+
+4. **Return `maxArea` after the loop ends**
+
+---
+
+## 📊 **Complexity Analysis**
+
+| Complexity | Value |
+| ---------- | ----- |
+| Time       | O(n)  |
+| Space      | O(1)  |
+
+---
+
+## 💻 **Code**
+
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int n = height.length;
+        int maxWater = 0;
+        int start = 0;
+        int end = n - 1;
+
+        while (start < end) {
+            int height1 = Math.min(height[start], height[end]);
+            int width = end - start;
+            int currWater = height1 * width;
+            maxWater = Math.max(maxWater, currWater);
+
+            if (height[start] < height[end]) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return maxWater;
+    }
+}
+```
+
+---
+
+## 🎯 **Conclusion**
+
+The Two Pointer approach reduces the brute-force **O(n²)** solution to an efficient **O(n)** time solution with **O(1)** space.
+This is optimal for this problem.
+
+---
+
+If you want, I can help you make a **GitHub repo structure suggestion** for this. Just let me know!
