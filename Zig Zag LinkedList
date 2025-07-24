@@ -1,0 +1,123 @@
+Absolutely! Here's a clean, professional **`README.md`** format explaining the **Zig-Zag Linked List** algorithm with code, approach, and example.
+
+---
+
+```markdown
+# Zig-Zag Linked List
+
+This project implements an algorithm to rearrange a singly linked list in a **Zig-Zag** pattern:
+
+```
+
+Input:  1 → 2 → 3 → 4 → 5 → 6
+Output: 1 → 6 → 2 → 5 → 3 → 4
+
+````
+
+---
+
+## 🧠 Approach
+
+The Zig-Zag rearrangement follows **3 main steps**:
+
+### 1. Find the Middle of the Linked List
+Use **slow and fast pointers** to locate the midpoint of the list.
+
+### 2. Reverse the Second Half
+Reverse the nodes from the midpoint onward.
+
+### 3. Alternate (Zig-Zag) Merge
+Merge the two halves by alternating nodes from the first and reversed second half.
+
+---
+
+## 📌 Example
+
+```text
+Original List:
+1 → 2 → 3 → 4 → 5 → 6
+
+After Step 1 (Find mid and split):
+1 → 2 → 3    and    4 → 5 → 6
+
+After Step 2 (Reverse second half):
+1 → 2 → 3    and    6 → 5 → 4
+
+After Step 3 (Zig-zag merge):
+1 → 6 → 2 → 5 → 3 → 4
+````
+
+---
+
+## 📦 Code (Java)
+
+```java
+class Solution {
+    public ListNode zigZagList(ListNode head) {
+        if (head == null || head.next == null) return head;
+
+        // Step 1: Find mid
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse second half
+        ListNode second = slow.next;
+        slow.next = null;
+        second = reverseList(second);
+
+        // Step 3: Alternate merge
+        ListNode first = head;
+        ListNode nextL, nextR;
+        while (first != null && second != null) {
+            nextL = first.next;
+            nextR = second.next;
+
+            first.next = second;
+            second.next = nextL;
+
+            first = nextL;
+            second = nextR;
+        }
+
+        return head;
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null, curr = head, next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+}
+```
+
+---
+
+## ✅ Time & Space Complexity
+
+| Operation | Complexity      |
+| --------- | --------------- |
+| Time      | O(n)            |
+| Space     | O(1) (in-place) |
+
+---
+
+## 📚 Topics Covered
+
+* Linked List
+* Two Pointer Technique
+* Reversing a List
+* In-place Merge
+
+---
+
+
+
