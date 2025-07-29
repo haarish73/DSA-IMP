@@ -1,0 +1,37 @@
+# Approach
+# 1. Add(node) to path
+# 2. LeftSubtree
+# 3. rightSubtree
+
+
+
+public static void printRoot2Leaf(Node root, ArrayList<Integer> path) {
+    if (root == null) {
+        return; // missing return and curly braces fixed
+    }
+
+    path.add(root.data);
+
+    // If it's a leaf node
+    if (root.left == null && root.right == null) {
+        printPath(path); // This should be a method that prints the list
+    }
+
+    // Recursive calls
+    printRoot2Leaf(root.left, path);
+    printRoot2Leaf(root.right, path);
+
+    // Backtrack (remove last element before returning)
+    path.remove(path.size() - 1);
+}
+
+public static void printPath(ArrayList<Integer> path) {
+    for (int i = 0; i < path.size(); i++) {
+        System.out.print(path.get(i));
+        if (i != path.size() - 1) {
+            System.out.print(" -> "); // For nicer formatting
+        }
+    }
+    System.out.println(); // Move to next line after printing one path
+}
+
